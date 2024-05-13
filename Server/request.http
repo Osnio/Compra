@@ -1,0 +1,32 @@
+POST http://localhost:3333/formulario
+Content-Type: application/json
+
+{
+    "p_nome":"Teste1" ,
+    "s_nome":"blaaa", 
+    "email":"bla@gmail.com",
+    "senha":"1212", 
+    "c_senha":"1212" 
+}
+
+###
+
+GET http://localhost:3333
+
+###
+
+DELETE http://localhost:3333/eraseData
+Content-Type: application/json
+
+{
+    "id":7
+}
+
+###
+PUT http://localhost:3333/update
+Content-Type: application/json
+
+{
+    "id":21,
+    "novoNome":"Alfa"
+}
