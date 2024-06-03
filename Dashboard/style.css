@@ -36,12 +36,12 @@ header{
     border-radius: 5px;
     cursor: pointer;
     color:snow;
-    z-index: 101;
+    z-index: 105;
 }
 #newUser:hover{
     background-color: grey;
-    transition: background 0.8s ease-in-out;
-    border-radius: 8px;
+    transition: background 400ms ease-in-out;
+    border-radius: 18px;
 }
 table{
     width: 100%;

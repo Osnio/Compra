@@ -8,14 +8,15 @@ let form = document.querySelector('#formcadastro')
 
 //Funcao para validar os dados do usuario pelo click. 
 
-form.addEventListener("click",(e)=>{
+form.addEventListener("submit",(e)=>{
     //Abstrair o comportamento normmal de formulario no nosso componente
     e.preventDefault()
     //Funcao que capta os dados do usuario e manda para a API
     enviarDados()
 })
 
-//Funcao asincorna, e aquela que a sua nao execucao imediata nao afeta o comportamneto do nosso codigo e retorna uma promessa
+//Funcao asincorna, e aquela que a sua nao execucao imediata nao afeta o comportamneto do nosso codigo e 
+//retorna uma promessa
 
 async function enviarDados(){
     //Pegando os valores de cada input
@@ -34,6 +35,7 @@ async function enviarDados(){
     .then(resp=>{
         return resp.json()
     })
+    
     .then(data=>{
         if(data.message==="EXISTS"){
             return alert("IMPOSSIVEL EFETUAR CADASTRO, USARIO JA EXISTE")

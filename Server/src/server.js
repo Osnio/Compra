@@ -12,7 +12,7 @@ app.use(json());
 
 // habilita a pegar cada um dos dados do corpo da requisicao
 app.use(bodyParser.urlencoded({extended:true}))
-//para permitir qu
+
 app.use(bodyParser.json())
 
 
