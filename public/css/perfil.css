@@ -21,12 +21,13 @@ body{
 }
 header{
     width: 100%;
-    height: max-content;
+    height: 50px;
     justify-content: space-around;
     background-color: var(--cor5);
     position: fixed;
     box-shadow: 2px 2px 2px black;
     display: flex;
+    align-items: center;
     z-index: 1;
     
     
@@ -51,49 +52,64 @@ header h1 a{
     text-decoration: none;
     color: var(--cor1);
 }
-.tt>a{
+.tt>a, .tt1>a{
     cursor: pointer;
     text-decoration: none;
     color: var(--cor1);
 }
-
-.yo{
+.yo, .yo1{
+    list-style: none;
     display: none;
     position: absolute;
 }
-
-.yo>li>a{
+.yo1>li>a{
+    cursor: none;
+}
+.yo>li>a, .yo1>li>a{
     text-decoration: none;
     color: var(--cor1);
     padding: 10px;
     display: block;
 }
-
-.hh:hover .yo {
+.hh:hover .yo, .hh1:hover .yo1 {
     display: block;
     opacity: 1;
     background-color: var(--cor5);
 }
-.yo>li>a:hover{
+.hh1:hover .yo1{
+    width: 150px;
+    margin: 150px 30px 0;
+}
+.yo>li>a:hover, .yo1>li>a:hover{
     background-color: var(--cor2);
 }
-
+.hh1{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
 .boy{
+    list-style: none;
     display: flex;
     gap: 20px;
+    align-items: center;
     
 }
-.yob>a, .cat>a{
+.yob>a{
     height: 20px;
     text-decoration: none;
     margin: 10px 0;
     padding: 7px 10px 0 5px;
     color: var(--cor1);
 }
-.yob, .cat{
-    display: flex;
+
+
+.yo>li>a:hover, .yo1>li>a:hover{
+    background-color: var(--cor2);
+    text-align: none;
 }
+
 .lee{
     width: 100%;
     height: max-content;
@@ -101,14 +117,13 @@ header h1 a{
     align-items: center;
     padding: 70px 20px 0 0px;
     justify-content: center;
-    
 }
+
 .cong{
     width: 40%;
     height: max-content;
     padding: 60px 0 60px 40px ;
-    background-color: var(--cor5);
-    
+    background-color: var(--cor5);   
 }
 .cong>h4{
     width: 30.5%;
@@ -142,6 +157,7 @@ header h1 a{
     align-items: center;
     display: flex;
 }
+
 
 .present{
     width: 100%;
@@ -503,7 +519,6 @@ header h1 a{
     text-align: center;
     border: solid 1px ;
     margin-top:10px ;
-    border: solid;
 }
 .alan button{
     border: none;

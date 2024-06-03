@@ -9,3 +9,7 @@ export const db = createConnection({
     port:"3306",
     database:"Compras"
 })
+db.connect(err=>{
+    if(err) return console.log("ERRO AO CONECTAR COM BANCO DE DADOS")
+        console.log("CONECTADO AO BANCO DE DADOS")
+})

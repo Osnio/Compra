@@ -16,59 +16,72 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
 
-//Get vai ir buscar os dados
-app.get("/", (req, res)=>{
+//Get vai ir buscar os dados dos usuario
+app.get("/allUsers", (req, res)=>{
     let sql = "select * from userdata"
     db.query(sql,(err, result)=>{
-        if(err) return console.log("Erro na query")
+        if(err) return console.log({message:"Erro na query"})
         return res.json(result)
 
     })
 })
+// CADASTRAR USUARIO
 app.post("/formulario", (req, res)=>{
-    let pnome = req.body.p_nome;
-    let snome = req.body.s_nome;
-    let email = req.body.email;
-    let senha = req.body.senha;
-    let Confsenha = req.body.c_senha;
-    let sql = `insert into userdata (id, nome, S_nome, email, Senha, Conf_Senha) 
-    VALUES(DEFAULT, '${pnome}', '${snome}', '${email}', '${senha}', '${Confsenha}' );`
-    db.query(sql,(err, result)=>{
-        if(err) return console.log("Erro no Cadastro")
-            console.log("Usuario Cadastrado")
-
+    const {p_nome,s_nome,email,senha} = req.body
+    let sql2 = `insert into userdata (id, nome, S_nome, email, Senha) 
+    VALUES(DEFAULT, '${p_nome}', '${s_nome}', '${email}', '${senha}' );`
+    let verify = `select * from userdata where email='${email}'`
+    db.query(verify,(err,data)=>{
+        if (err) return res.json({message:"SERVER ERROR"})
+            if(data.length>0){
+                return res.json({message:"EXISTS"})
+            }else{
+                db.query(sql2,(err, result)=>{
+                    if(err) return res.json({message:"Erro no Cadastro"})
+                        res.json({message:"Usuario Cadastrado"})
+            
+                })
+            }
     })
 })
-
+//VERIFICAR USUARIO
 app.post("/login", (req, res)=>{
     let email = req.body.email;
     let senha = req.body.senha;
-    let sql = `select*from userdata where email='${email}' and Senha='${senha}'`
-    db.query(sql,(err, result)=>{
-        if(result == null || result==0)
-            res.send(' Verifique os seus dados')
-        else
-            res.redirect('/home')
+    let sql = `select * from userdata where email='${email}' and Senha='${senha}';`
+    db.query(sql,(err,data)=>{
+        if(err) return res.json({message:"SERVER ERROR"})
+            if(data.length>0){
+                res.json(data)
+            }else{
+                res.json({message:"NOT EXISTS"})
+            }
     })
 })
-
-
-
-app.delete("/eraseData",(req, res)=>{
-    const {id}=req.body
+//APAGAR USUARIO
+app.delete("/eraseData/:id",(req, res)=>{
+    const {id}=req.params
     let sql = `delete from userdata where id=${id};`
     db.query(sql,(err)=>{
-        if(err) return console.log("Erro ao apagar")
-        console.log("Sucess delete")
+        if(err) return res.json({message:"ERROR"})
+        res.json({message:"SUCESS"})
     })
 })
-
+//ATUALIZAR DADOS DO USUARIO
 app.put("/update", (req, res)=>{
-    const {id, novoNome} = req.body
-    let sql = `update userdata set nome='${novoNome}' where id=${id};`
-    db.query(sql, (err, result)=>{
-        if(err) return console.log("Erro ao atualizar")
-            console.log("Atualzado com sucesso")
+    const {id, novoNome, snome,pass, email} = req.body
+    let sql = `update userdata set nome='${novoNome}', S_nome='${snome}',email='${email}',Senha='${pass}' where id=${id};`
+    let verify = `select * from userdata where email='${email}'`
+    db.query(verify,(err, data)=>{
+        if(err) return res.json({message:"ERROR"})
+            if(data.length>1){
+                res.json({message:"ALREADY EXISTS"})
+            }else{
+                db.query(sql, (err, result)=>{
+                    if(err) return res.json({message:"ERROR"})
+                        res.json({message:"SUCESS"})
+                })
+            }
     })
 })
 

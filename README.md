@@ -1,2 +1,0 @@
-# Compra
- Minha Loja

@@ -1,35 +1,35 @@
 let email = document.querySelector("#email")
-let send = document.querySelector("#send")
+let senha =document.querySelector("#senha")
+let form = document.querySelector("#formlogin")
 
 
-send.addEventListener("click", (e)=>{
+form.addEventListener("submit", (e)=>{
+    //previne o comportamento normal ou padrao do formulario. Para evitar que os dados do usuario sejem enviados na URL.
     e.preventDefault()
     enviarDados()
 })
 
-function enviarDados(){
-    
-    let email = email.value
-    let senha = senha.value
-
-    try{
-        fetch("http://localhost:3333/login",{
-            methor:"POST",
-            headers:{
-            "content-Type": "application/json"
-            },
-            body:JSON.stringify({
-                "email": email,
-                "Senha":senha
-            })
-
+async function enviarDados(){
+    await fetch("http://localhost:3333/login",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            "email":email.value,
+            "senha":senha.value
         })
-
-        if()
-        return
-    } catch(error){
-        console.log(error)
-    }
-    
-
+    })
+    .then(resp=>{
+        return resp.json()
+    })
+    .then(data=>{
+        if(data.message==="NOT EXISTS"){
+            alert("USUARIO E/OU SENHA INVALIDOS")
+        }else{
+            window.location.href="../../views/perfil.html"
+        }
+    })
+    .catch(err=>alert("TENTE MAIS TARDE"))
 }
+

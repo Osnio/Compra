@@ -1,5 +1,4 @@
 
-
 const addButtons = document.querySelectorAll('.big button');
 const carIcon = document.querySelector('#carIcon');
 
