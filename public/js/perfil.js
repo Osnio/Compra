@@ -8,3 +8,9 @@ logout.addEventListener("click",()=>{
         window.location.href="./index.html"
     }
 })
+
+const userData = JSON.parse(localStorage.getItem("dados_usuario"))
+console.log(userData)
+if(!userData){
+    window.location.href="./index.html"
+}
