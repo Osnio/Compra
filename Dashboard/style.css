@@ -78,6 +78,7 @@ input#formEdit:checked ~ .blur{
     width: 100%;
     height: 100%;
     background-color: #000000c6;
+    backdrop-filter: blur(5px);
 }
 form{
     color: snow;

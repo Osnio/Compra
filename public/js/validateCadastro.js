@@ -3,12 +3,9 @@ let pnome   = document.querySelector("#pnome")
 let snome   = document.querySelector("#snome")
 let email   = document.querySelector("#email")
 let senha   = document.querySelector("#senha")
-let validar = document.querySelector("#validar")
-let form = document.querySelector('#formcadastro')
-
+let form = document.querySelector('#validar')
 //Funcao para validar os dados do usuario pelo click. 
-
-form.addEventListener("submit",(e)=>{
+form.addEventListener("click",(e)=>{
     //Abstrair o comportamento normmal de formulario no nosso componente
     e.preventDefault()
     //Funcao que capta os dados do usuario e manda para a API
@@ -35,16 +32,22 @@ async function enviarDados(){
     .then(resp=>{
         return resp.json()
     })
-    
-    .then(data=>{
+    .then(data => {
         if(data.message==="EXISTS"){
             return alert("IMPOSSIVEL EFETUAR CADASTRO, USARIO JA EXISTE")
-        }else if(data.message==="Usuario Cadastrado"){
+        }else{
             alert("USUARIO CADASTRADO COM SUCESSO")
-            if(form.innerText!=="enviar dados"){
-                window.location.href="../../views/perfil.html"
+            if(form.innerText==="Adicionar usuário"){
+                window.location.reload()
             }else{
-                window.location.href="file:///C:/Users/marti/Documents/Projecto-de-TLP/Compra/Dashboard/index.html"
+                localStorage.setItem("dados_usuario",JSON.stringify({
+                    "id":data[0].id,
+                    "nome":data[0].nome,
+                    "snome":data[0].S_nome,
+                    "email":data[0].email,
+                    "senha":data[0].Senha
+                }))
+                window.location.href="../perfil.html"
             }
         }
     })

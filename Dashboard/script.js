@@ -101,6 +101,7 @@ async function editarUsuario(event) {
 }
 
 async function apagarUsuario(event) {
+    //Vai pegar um id que esta fora do escopo dessa funcao
     const userId = event.target.dataset.id;
     const confirmation = confirm("Tem certeza que deseja excluir este usuário?");
 

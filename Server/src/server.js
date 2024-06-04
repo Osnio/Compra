@@ -38,7 +38,10 @@ app.post("/formulario", (req, res)=>{
             }else{
                 db.query(sql2,(err, result)=>{
                     if(err) return res.json({message:"Erro no Cadastro"})
-                        res.json({message:"Usuario Cadastrado"})
+                        db.query(verify,(err,data)=>{
+                            if(err) return res.json({message:"ERROR"})
+                                res.json(data)
+                        })
             
                 })
             }
@@ -74,13 +77,61 @@ app.put("/update", (req, res)=>{
     let verify = `select * from userdata where email='${email}'`
     db.query(verify,(err, data)=>{
         if(err) return res.json({message:"ERROR"})
-            if(data.length>1){
+            if(data.length>=1 && data[0].id !== id){
                 res.json({message:"ALREADY EXISTS"})
             }else{
                 db.query(sql, (err, result)=>{
                     if(err) return res.json({message:"ERROR"})
                         res.json({message:"SUCESS"})
                 })
+            }
+    })
+})
+
+//COMENTARIO
+app.post("/comentario", (req, res)=>{
+    const {comentario,avaliacao} = req.body
+    let sql2 = `insert into comentarios (comentario, avaliacao) 
+    VALUES('${comentario}', ${avaliacao});`
+    db.query(sql2,(err,data)=>{
+        if (err){ return res.json({message:"SERVER ERROR"})
+        }else{
+            return res.json(data)
+            }
+    })
+})
+//COMENTARIO
+app.get("/comentario", (req, res)=>{
+    const {comentario,avaliacao} = req.body
+    let sql2 = `select*from comentarios;`
+    db.query(sql2,(err,data)=>{
+        if (err){ return res.json({message:"SERVER ERROR"})
+        }else{
+            return res.json(data)
+            }
+    })
+})
+//COMENTARIO
+app.put("/comentario/:id", (req, res)=>{
+    const id= req.params.id
+    const {comentario,avaliacao} = req.body
+    let sql2 = `update comentarios set  comentario='${comentario}', avaliacao=${avaliacao}) where id=${id};`
+    db.query(sql2,(err,data)=>{
+        if (err){ return res.json({message:"SERVER ERROR"})
+        }else{
+            return res.json(data)
+            }
+    })
+})
+//COMENTARIO
+app.delete("/comentario/:id", (req, res)=>{
+    const id= req.params.id
+    const {comentario,avaliacao} = req.body
+    let sql2 = `delete from comentarios  where id=${id};`
+    db.query(sql2,(err,data)=>{
+        if (err){ return res.json({message:"SERVER ERROR"})
+        }else{
+            return res.json(data)
             }
     })
 })

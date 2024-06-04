@@ -22,11 +22,19 @@ async function enviarDados(){
     })
     .then(resp=>{
         return resp.json()
+       
     })
     .then(data=>{
         if(data.message==="NOT EXISTS"){
             alert("USUARIO E/OU SENHA INVALIDOS")
         }else{
+            localStorage.setItem("dados_usuario",JSON.stringify({
+                "id":data[0].id,
+                "nome":data[0].nome,
+                "snome":data[0].S_nome,
+                "email":data[0].email,
+                "senha":data[0].Senha
+            }))
             window.location.href="../../views/perfil.html"
         }
     })
