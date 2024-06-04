@@ -88,6 +88,11 @@ app.put("/update", (req, res)=>{
     })
 })
 
+
+
+
+
+
 //COMENTARIO
 app.post("/comentario", (req, res)=>{
     const {comentario,avaliacao} = req.body

@@ -2,6 +2,7 @@ const userData = JSON.parse(localStorage.getItem("dados_usuario"))
         let nome = document.querySelector("#nome")
         let email = document.querySelector("#email")
         let senha = document.querySelector("#senha")
+        //adicinar um novo texto no elemeto nome...
         nome.innerText+=userData.nome
         email.innerText+=userData.email
         senha.innerText+=userData.senha
